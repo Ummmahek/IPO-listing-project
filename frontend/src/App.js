@@ -51,8 +51,15 @@ function MainApp() {
                     margin: 0,
                     color: "#2c3e50",
                     fontSize: "2.5rem",
-                    fontWeight: "600"
-                  }}>IPO Listing Analysis</h1>
+                    fontWeight: "600",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    fontFamily: "'Poppins', sans-serif"
+                  }}>
+                    <span style={{ fontSize: "1.8rem" }}>📈</span>
+                    IPOlytix
+                  </h1>
                   {user && (
                     <div style={{
                       display: "flex",
@@ -162,9 +169,10 @@ function MainApp() {
                 marginTop: "30px",
                 color: "#666",
                 padding: "20px",
-                borderTop: "1px solid #eee"
+                borderTop: "1px solid #eee",
+                fontFamily: "'Poppins', sans-serif"
               }}>
-                © 2025 IPO Dashboard | All rights reserved
+                © 2025 IPOlytix | All rights reserved
               </footer>
             </>
           } />

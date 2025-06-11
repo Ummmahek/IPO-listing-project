@@ -36,12 +36,28 @@ export default function Login({ onSwitch }) {
         width: "100%",
         maxWidth: "400px"
       }}>
-        <h2 style={{
-          color: "#2c3e50",
-          marginBottom: "30px",
+        <div style={{
           textAlign: "center",
-          fontSize: "2rem"
-        }}>Welcome Back</h2>
+          marginBottom: "30px"
+        }}>
+          <div style={{
+            fontSize: "2.5rem",
+            marginBottom: "10px"
+          }}>📈</div>
+          <h2 style={{
+            color: "#2c3e50",
+            margin: 0,
+            fontSize: "2rem",
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: "600"
+          }}>IPOlytix</h2>
+          <p style={{
+            color: "#666",
+            marginTop: "10px",
+            fontSize: "1.1rem",
+            fontFamily: "'Poppins', sans-serif"
+          }}>Welcome Back</p>
+        </div>
         
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <div>
