@@ -8,7 +8,6 @@ from models import db, User
 from utils import fetch_finnhub_ipos
 
 # ML/NLP imports
-from aiml.ipo_predict import predict_listing_gain
 from aiml.sentiment_scrape import get_ipo_sentiment
 
 app = Flask(__name__, static_folder=None)
@@ -87,55 +86,32 @@ def get_ipo(name):
         return jsonify({'error': 'IPO not found'}), 404
     return jsonify(ipo), 200
 
-@app.route('/api/profitloss', methods=['POST'])
-@jwt_required()
-def profit_loss():
-    data = request.json
-    if not all(x in data for x in ['ipo_name', 'qty', 'sell_price']):
-        return jsonify({'error': 'Missing fields'}), 400
-    ipos = fetch_finnhub_ipos()
-    ipo_list = ipos.get("listed", []) + ipos.get("upcoming", [])
-    ipo = next((ipo for ipo in ipo_list if ipo['IPO_Name'].lower() == data['ipo_name'].lower()), None)
-    if not ipo:
-        return jsonify({'error': 'IPO not found'}), 404
-    try:
-        qty = int(data['qty'])
-        sell_price = float(data['sell_price'])
-        cost_price = float(ipo['Issue_Price'])
-        pl = (sell_price - cost_price) * qty
-    except Exception as e:
-        return jsonify({'error': str(e)}), 400
-    return jsonify({'profit_loss': pl}), 200
-
-# --- ML PREDICTION ENDPOINT ---
-@app.route('/api/ml_predict', methods=['POST'])
-@jwt_required()
-def ml_predict():
-    data = request.json
-    # Expects: Issue_Size(crores), QIB, HNI, RII, Issue_price
-    try:
-        features = [
-            float(data['Issue_Size(crores)']),
-            float(data['QIB']),
-            float(data['HNI']),
-            float(data['RII']),
-            float(data['Issue_price']),
-        ]
-        pred = predict_listing_gain(features)
-    except Exception as e:
-        return jsonify({'error': str(e)}), 400
-    return jsonify({'predicted_listing_gain_percent': round(pred, 2)}), 200
-
 # --- NLP SENTIMENT ENDPOINT ---
 @app.route('/api/ipo_sentiment', methods=['POST'])
 @jwt_required()
 def ipo_sentiment():
-    data = request.json
-    ipo_name = data.get('ipo_name')
-    if not ipo_name:
-        return jsonify({'error': 'Missing ipo_name'}), 400
-    sentiment = get_ipo_sentiment(ipo_name)
-    return jsonify(sentiment), 200
+    try:
+        data = request.json
+        ipo_name = data.get('ipo_name')
+        if not ipo_name:
+            return jsonify({
+                'error': 'Missing ipo_name',
+                'sentiment': 'Neutral',
+                'score': 0,
+                'articles_analyzed': 0
+            }), 400
+            
+        sentiment = get_ipo_sentiment(ipo_name)
+        print("Sentiment analysis result:", sentiment)  # Debug log
+        return jsonify(sentiment), 200
+    except Exception as e:
+        print(f"Error in sentiment endpoint: {str(e)}")  # Debug log
+        return jsonify({
+            'error': str(e),
+            'sentiment': 'Neutral',
+            'score': 0,
+            'articles_analyzed': 0
+        }), 500
 
 # --- GRAPHS DATA ENDPOINT ---
 @app.route('/api/ipo_trends')

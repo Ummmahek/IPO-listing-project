@@ -7,8 +7,6 @@ import Signup from "./components/Auth/Signup";
 import Navigation from "./components/Navigation";
 import IPOSelector from "./components/IPOSelector";
 import IPOInfo from "./components/IPOInfo";
-import ProfitLossCalc from "./components/ProfitLossCalc";
-import Prediction from "./components/Prediction";
 import Sentiment from "./components/Sentiment";
 import Graphs from "./components/Graphs";
 import About from "./components/About";
@@ -121,27 +119,8 @@ function MainApp() {
 
                 {selectedIPO && (
                   <div style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                    gap: "20px",
                     marginTop: "20px"
                   }}>
-                    <div style={{
-                      backgroundColor: "white",
-                      padding: "20px",
-                      borderRadius: "10px",
-                      boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
-                    }}>
-                      <ProfitLossCalc selectedIPO={selectedIPO} />
-                    </div>
-                    <div style={{
-                      backgroundColor: "white",
-                      padding: "20px",
-                      borderRadius: "10px",
-                      boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
-                    }}>
-                      <Prediction selectedIPO={selectedIPO} />
-                    </div>
                     <div style={{
                       backgroundColor: "white",
                       padding: "20px",
