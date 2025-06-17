@@ -5,21 +5,33 @@ export default function Navigation() {
     const location = useLocation();
     
     const isActive = (path) => {
-        return location.pathname === path ? 'active' : '';
+        return location.pathname === path;
     };
+
+    const linkStyle = (path) => ({
+        color: isActive(path) ? '#3498db' : '#2c3e50',
+        textDecoration: 'none',
+        padding: '8px 16px',
+        borderRadius: '5px',
+        transition: 'background-color 0.2s',
+        backgroundColor: isActive(path) ? '#f8f9fa' : 'transparent',
+        fontWeight: isActive(path) ? '500' : 'normal'
+    });
 
     return (
         <nav style={{
-            backgroundColor: '#2c3e50',
-            padding: '1rem',
-            marginBottom: '2rem'
+            backgroundColor: 'white',
+            padding: '15px 20px',
+            borderRadius: '10px',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+            marginBottom: '20px'
         }}>
             <div style={{
-                maxWidth: '1200px',
-                margin: '0 auto',
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center'
+                alignItems: 'center',
+                maxWidth: 1200,
+                margin: '0 auto'
             }}>
                 <div style={{
                     color: 'white',
@@ -31,39 +43,23 @@ export default function Navigation() {
                 
                 <div style={{
                     display: 'flex',
-                    gap: '2rem'
+                    gap: '20px',
+                    alignItems: 'center'
                 }}>
-                    <Link to="/" style={{
-                        color: 'white',
-                        textDecoration: 'none',
-                        padding: '0.5rem 1rem',
-                        borderRadius: '4px',
-                        backgroundColor: isActive('/') ? '#3498db' : 'transparent',
-                        transition: 'background-color 0.2s'
-                    }}>
-                        IPO Listing
+                    <Link to="/" style={linkStyle('/')}>
+                        Home
                     </Link>
-                    
-                    <Link to="/about" style={{
-                        color: 'white',
-                        textDecoration: 'none',
-                        padding: '0.5rem 1rem',
-                        borderRadius: '4px',
-                        backgroundColor: isActive('/about') ? '#3498db' : 'transparent',
-                        transition: 'background-color 0.2s'
-                    }}>
+                    <Link to="/watchlist" style={linkStyle('/watchlist')}>
+                        Watchlist
+                    </Link>
+                    <Link to="/calculator" style={linkStyle('/calculator')}>
+                        Investment Calculator
+                    </Link>
+                    <Link to="/forum" style={linkStyle('/forum')}>
+                        Forum
+                    </Link>
+                    <Link to="/about" style={linkStyle('/about')}>
                         About
-                    </Link>
-                    
-                    <Link to="/forum" style={{
-                        color: 'white',
-                        textDecoration: 'none',
-                        padding: '0.5rem 1rem',
-                        borderRadius: '4px',
-                        backgroundColor: isActive('/forum') ? '#3498db' : 'transparent',
-                        transition: 'background-color 0.2s'
-                    }}>
-                        Discussion Forum
                     </Link>
                 </div>
             </div>

@@ -11,6 +11,8 @@ import Sentiment from "./components/Sentiment";
 import Graphs from "./components/Graphs";
 import About from "./components/About";
 import Forum from "./components/Forum";
+import Watchlist from "./components/Watchlist";
+import InvestmentCalculator from "./components/InvestmentCalculator";
 
 function MainApp() {
   const [selectedIPO, setSelectedIPO] = useState(null);
@@ -30,6 +32,8 @@ function MainApp() {
         <Routes>
           <Route path="/about" element={<About />} />
           <Route path="/forum" element={<Forum />} />
+          <Route path="/watchlist" element={<Watchlist />} />
+          <Route path="/calculator" element={<InvestmentCalculator />} />
           <Route path="/" element={
             <>
               <div style={{
